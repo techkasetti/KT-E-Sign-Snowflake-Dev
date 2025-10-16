@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_ARCHIVE_RESULT_09(result_id STRING, job_id STRING, location STRING, status STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.ARCHIVE_RESULTS_09 (RESULT_ID, JOB_ID, LOCATION, STATUS) VALUES (:result_id, :job_id, :location, :status);
+$$
+

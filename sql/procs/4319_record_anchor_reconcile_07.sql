@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_ANCHOR_RECONCILE_07(recon_id STRING, tx_id STRING, status STRING, details VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.ANCHOR_RECONCILIATIONS_07 (RECON_ID, TX_ID, STATUS, DETAILS) VALUES (:recon_id, :tx_id, :status, :details);
+$$
+

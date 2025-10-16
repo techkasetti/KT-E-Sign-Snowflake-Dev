@@ -1,0 +1,17 @@
+filename, purpose, path
+signature_domain_schema.sql, "Core domain DDL for E-Signature module", sql/ddl/signature_domain_schema.sql
+create_signature_request.py, "Create request and signer rows", snowpark/procedures/create_signature_request.py
+upsert_signature_webhook.py, "Idempotent webhook ingestion processor", snowpark/procedures/upsert_signature_webhook.py
+ingest_signature_events.py, "Snowpipe ingestion processor for raw events", snowpark/procedures/ingest_signature_events.py
+validate_signature_and_record.py, "Validate signature and persist validation record", snowpark/procedures/validate_signature_and_record.py
+evidence_zipper.py, "Assemble evidence bundle and persist it", snowpark/procedures/evidence_zipper.py
+export_evidence_to_s3.py, "Export evidence bundles to S3 and register manifest", sql/procs/export_evidence_to_s3.py
+purge_old_documents.py, "Purge old document archives with backup", sql/procs/purge_old_documents.py
+pki_and_ocsp_schema.sql, "PKI certificate and OCSP tables", sql/ddl/pki_and_ocsp_schema.sql
+check_ocsp_and_update.py, "OCSP checker and updater proc", sql/procs/check_ocsp_and_update.py
+faiss_query_service Dockerfile, "FAISS query service Dockerfile", services/faiss_query_service/Dockerfile
+faiss_query_service app.py, "FAISS FastAPI query service implementation", services/faiss_query_service/app.py
+manifest/register_all_remaining.sh, "Registration script for remaining procs and policies", sql/register/register_all_remaining.sh
+
+The manifest enumerates the files added in this tranche and maps each file to a clear purpose to support automated registration and review @36 @106.
+

@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_DATA_CLASSIFICATION_09(class_id STRING, name STRING, sensitivity_level STRING, rules VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.DATA_CLASSIFICATION_09 t USING (SELECT :class_id AS cid, :name AS nm, :sensitivity_level AS sl, :rules AS r) s ON t.CLASS_ID = s.cid WHEN MATCHED THEN UPDATE SET NAME = s.nm, SENSITIVITY_LEVEL = s.sl, RULES = s.r WHEN NOT MATCHED THEN INSERT (CLASS_ID, NAME, SENSITIVITY_LEVEL, RULES) VALUES (s.cid, s.nm, s.sl, s.r);
+$$
+

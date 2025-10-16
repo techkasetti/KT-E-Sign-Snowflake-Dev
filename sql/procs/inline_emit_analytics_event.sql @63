@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.EMIT_ANALYTICS_EVENT(event_name STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='emit_analytics_event'
+AS
+$$
+def emit_analytics_event(session, event_name, payload):
+    import uuid, json
+    eid = 'ev_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.ANALYTICS_EVENTS (EVT_ID, EVENT_NAME, PAYLOAD, OCCURRED_AT) VALUES ('{eid}','{event_name}',PARSE_JSON('{json.dumps(payload or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"event_id": eid}
+$$;
+```
+

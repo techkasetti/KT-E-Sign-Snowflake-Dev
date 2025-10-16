@@ -1,0 +1,12 @@
+name: Notify Alerts CI
+on:
+  workflow_dispatch:
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Register notify procedure
+        run: ./register/register_notify_alerts_proc.sh
+      - name: Invoke notify (demo)
+        run: snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "CALL DOCGEN.NOTIFY_PENDING_ALERTS(10);"
+

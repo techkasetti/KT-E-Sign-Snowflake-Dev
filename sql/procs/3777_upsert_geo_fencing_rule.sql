@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_GEO_FENCING_RULE(rule_id STRING, name STRING, regions ARRAY, action VARIANT, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.GEO_FENCING_RULES t USING (SELECT :rule_id AS rid, :name AS nm, :regions AS regs, :action AS act, :enabled AS en) s ON t.RULE_ID = s.rid WHEN MATCHED THEN UPDATE SET NAME = s.nm, REGIONS = s.regs, ACTION = s.act, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (RULE_ID, NAME, REGIONS, ACTION, ENABLED) VALUES (s.rid, s.nm, s.regs, s.act, s.en);
+$$
+

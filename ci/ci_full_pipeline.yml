@@ -1,0 +1,21 @@
+name: Full Deploy & Smoke Pipeline
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register All Tranche
+        run: |
+          chmod +x sql/register/register_all_tranches.sh
+          ./sql/register/register_all_tranches.sh
+      - name: Run smoke tests
+        run: |
+          pytest -q tests/test_compute_invoice_hash.py
+          pytest -q tests/test_reconcile_invoices.py
+          pytest -q tests/test_ocsp_and_notify.py
+
+This CI pipeline coordinates registration and smoke tests according to the CI orchestration practices in your delivery docs @66 @110. @66 @110
+

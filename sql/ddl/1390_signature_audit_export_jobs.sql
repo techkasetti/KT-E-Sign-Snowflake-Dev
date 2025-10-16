@@ -1,0 +1,3 @@
+-- Registry for scheduled audit exports for compliance teams and external auditors @1 @6.
+CREATE OR REPLACE TABLE DOCGEN.AUDIT_EXPORT_JOBS ( JOB_ID STRING PRIMARY KEY, SCHEDULE_CRON STRING, TARGET_STAGE STRING, STATUS STRING, LAST_RUN_AT TIMESTAMP_LTZ );
+

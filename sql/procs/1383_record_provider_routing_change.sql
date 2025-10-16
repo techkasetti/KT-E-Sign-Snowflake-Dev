@@ -1,0 +1,6 @@
+-- Record provider routing configuration change for an account. CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_PROVIDER_ROUTING_CHANGE(account_id STRING, old_cfg VARIANT, new_cfg VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ INSERT INTO DOCGEN.PROVIDER_ROUTING_AUDIT (AUDIT_ID, ACCOUNT_ID, OLD_CONFIG, NEW_CONFIG) VALUES (UUID_STRING(), :account_id, :old_cfg, :new_cfg); $$;
+

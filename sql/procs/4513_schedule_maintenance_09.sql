@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.SCHEDULE_MAINTENANCE_09(maint_id STRING, description STRING, start_at TIMESTAMP_LTZ, end_at TIMESTAMP_LTZ)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.SCHEDULED_MAINTENANCE_09 (MAINT_ID, DESCRIPTION, START_AT, END_AT) VALUES (:maint_id, :description, :start_at, :end_at);
+$$
+

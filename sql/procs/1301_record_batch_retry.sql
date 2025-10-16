@@ -1,0 +1,9 @@
+-- Append a record when a batch export retry attempt occurs. @1 @31
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_BATCH_RETRY(export_id STRING, status STRING, details VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.BATCH_RETRY_HISTORY (HISTORY_ID, EXPORT_ID, STATUS, DETAILS) VALUES (UUID_STRING(), :export_id, :status, :details);
+$$;
+

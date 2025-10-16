@@ -1,0 +1,10 @@
+-- Optional geo-location log for signer events to support fraud detection (store IP/country). @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_GEO_LOG (
+  GEO_ID STRING PRIMARY KEY,
+  EVENT_ID STRING,
+  REQUEST_ID STRING,
+  IP_ADDRESS STRING,
+  GEO_INFO VARIANT,
+  LOGGED_AT TIMESTAMP_LTZ DEFAULT CURRENT_TIMESTAMP()
+);
+

@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_RECOVERY_EXECUTION_09(exec_id STRING, plan_id STRING, status STRING, started_at TIMESTAMP_LTZ, ended_at TIMESTAMP_LTZ)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.RECOVERY_EXECUTIONS_09 (EXEC_ID, PLAN_ID, STATUS, STARTED_AT, ENDED_AT) VALUES (:exec_id, :plan_id, :status, :started_at, :ended_at);
+$$
+

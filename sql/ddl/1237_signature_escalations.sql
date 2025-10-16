@@ -1,0 +1,10 @@
+-- Tracks escalations and manual interventions required for disputed signatures or verification failures. @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_ESCALATIONS (
+  ESCALATION_ID STRING PRIMARY KEY,
+  REQUEST_ID STRING,
+  REASON STRING,
+  ASSIGNED_TO STRING,
+  STATUS STRING,
+  CREATED_AT TIMESTAMP_LTZ DEFAULT CURRENT_TIMESTAMP()
+);
+

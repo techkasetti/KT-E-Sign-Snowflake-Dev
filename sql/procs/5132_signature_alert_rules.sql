@@ -1,0 +1,10 @@
+CREATE OR REPLACE TABLE DOCGEN.ALERT_RULES (
+  RULE_ID STRING PRIMARY KEY,
+  NAME STRING,
+  CONDITION VARIANT,
+  ACTIONS VARIANT,
+  ENABLED BOOLEAN DEFAULT TRUE
+);
+
+Alert rules metadata for anomaly detectors and incident workflows. @63 @31
+

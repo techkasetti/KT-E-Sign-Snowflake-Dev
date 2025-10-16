@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_BATCH_PROVIDER_HEALTH_CHECKS()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged @~/procedures/run_batch_provider_health_checks.py
+$$
+

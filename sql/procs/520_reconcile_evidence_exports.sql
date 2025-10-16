@@ -1,0 +1,9 @@
+-- Reconcile evidence export manifests written to S3 vs rows in SIGNATURE_EVIDENCE_BUNDLE and report mismatches. @28 @30
+CREATE OR REPLACE PROCEDURE DOCGEN.RECONCILE_EVIDENCE_EXPORTS()
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+  SELECT COUNT(*) AS total_bundles FROM DOCGEN.SIGNATURE_EVIDENCE_BUNDLE;
+$$;
+

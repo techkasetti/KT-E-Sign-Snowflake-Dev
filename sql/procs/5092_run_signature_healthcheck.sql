@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_SIGNATURE_HEALTHCHECK()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='run_signature_healthcheck';
+
+Implements health probes for critical components and writes to INTEGRATION_HEALTH_07. @19 @31
+

@@ -1,0 +1,7 @@
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+-- Example indexes / comments (Snowflake doesn't have traditional indexes; add clustering keys)
+ALTER TABLE DOCGEN.SIGNATURE_EVENTS CLUSTER BY (ACCOUNT_ID, REQUEST_ID);
+ALTER TABLE DOCGEN.SIGNATURE_VALIDATION CLUSTER BY (REQUEST_ID, VERIFIED_AT);
+COMMENT ON TABLE DOCGEN.SIGNATURE_REQUESTS IS 'Stores signature request lifecycle for E-Sign flows (demo)';
+

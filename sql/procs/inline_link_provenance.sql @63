@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.LINK_PROVENANCE(parent_ref STRING, child_ref STRING, relation_type STRING)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='link_provenance'
+AS
+$$
+def link_provenance(session, parent_ref, child_ref, relation_type):
+    import uuid
+    lid = 'pl_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.PROVENANCE_LINKS (PL_ID, PARENT_REF, CHILD_REF, RELATION_TYPE, LINKED_AT) VALUES ('{lid}','{parent_ref}','{child_ref}','{relation_type}',CURRENT_TIMESTAMP());").collect()
+    return {"link_id": lid}
+$$;
+```
+

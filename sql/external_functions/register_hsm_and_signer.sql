@@ -1,0 +1,16 @@
+-- Register HSM signing External Function and API_INTEGRATION (demo)
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+
+CREATE OR REPLACE API INTEGRATION AI_FEATURE_HUB.HSM_SIGN_INTEGRATION
+ENABLED = TRUE
+API_AWS_ROLE_ARN = 'arn:aws:iam::111122223333:role/hsm-sign-role'
+ALLOWED_PREFIXES = ('https://hsm-signer.demo.example.com/');
+
+CREATE OR REPLACE EXTERNAL FUNCTION DOCGEN.HSM_SIGN(payload VARIANT)
+RETURNS VARIANT
+API_INTEGRATION = AI_FEATURE_HUB.HSM_SIGN_INTEGRATION
+HEADERS = ('Content-Type' = 'application/json')
+CONTEXT_HEADERS = ('Authorization')
+AS 'https://hsm-signer.demo.example.com/v1/sign';
+

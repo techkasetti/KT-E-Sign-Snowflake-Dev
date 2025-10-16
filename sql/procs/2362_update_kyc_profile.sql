@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPDATE_KYC_PROFILE(profile_id STRING, subject_ref STRING, status STRING, verified_at TIMESTAMP_LTZ, metadata VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.KYC_PROFILES t USING (SELECT :profile_id AS pid, :subject_ref AS sref, :status AS st, :verified_at AS va, :metadata AS md) s ON t.PROFILE_ID = s.pid WHEN MATCHED THEN UPDATE SET SUBJECT_REF = s.sref, STATUS = s.st, VERIFIED_AT = s.va, METADATA = s.md WHEN NOT MATCHED THEN INSERT (PROFILE_ID, SUBJECT_REF, STATUS, VERIFIED_AT, METADATA) VALUES (s.pid, s.sref, s.st, s.va, s.md);
+$$
+

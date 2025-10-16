@@ -1,0 +1,9 @@
+filename,purpose,path
+sql/ddl/20_pki_tables.sql,"PKI certificate and OCSP status tables","sql/ddl/20_pki_tables.sql"
+sql/external_functions/register_ocsp_gateway.sql,"OCSP gateway external function registration","sql/external_functions/register_ocsp_gateway.sql"
+sql/procs/ocsp_probe.py,"OCSP probe procedure calling external function","sql/procs/ocsp_probe.py"
+sql/register/register_ocsp_check.sh,"Register OCSP probe procedure","sql/register/register_ocsp_check.sh"
+... (other rows omitted for brevity)
+
+The manifest CSV provides a deployable file manifest consistent with the generator/manifest patterns in your tranche packaging guidance @31 @36. @31 @36
+

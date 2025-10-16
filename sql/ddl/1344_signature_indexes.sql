@@ -1,0 +1,5 @@
+-- Recommended clustering and search-friendly indexes for signature tables to support admin queries @1 @6.
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_EVENTS_CLUSTERED CLUSTER BY (ACCOUNT_ID, EVENT_TS) AS SELECT * FROM DOCGEN.SIGNATURE_EVENTS LIMIT 0;
+

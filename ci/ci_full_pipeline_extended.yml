@@ -1,0 +1,25 @@
+name: Full E‑Signature Pipeline CI
+on: workflow_dispatch:
+jobs:
+  full_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register schemas and procs
+        run: |
+          ./sql/register/register_all_remaining.sh
+          ./sql/register/register_write_evidence.sh
+          ./sql/register/register_export_manifest.sh
+          ./sql/register/register_reconcile_proc.sh
+          ./sql/register/register_ocsp_check.sh
+          ./sql/register/register_retention_proc.sh
+      - name: Start tasks
+        run: |
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "ALTER TASK DOCGEN.TASK_INGEST_SIGNATURE_EVENTS RESUME; ALTER TASK DOCGEN.TASK_ALERT_DETECTOR RESUME; ALTER TASK DOCGEN.TASK_NOTIFY_SLACK RESUME; ALTER TASK DOCGEN.TASK_ENFORCE_RETENTION RESUME; ALTER TASK DOCGEN.TASK_OCSP_POLL RESUME;"
+      - name: Run smoke tests
+        run: |
+          pytest -q tests/test_ingest_and_alerts.py
+          pytest -q tests/test_assembly_and_write.py
+          pytest -q tests/test_e2e_evidence_flow.py
+          pytest -q tests/test_ocsp_and_reconcile.py
+

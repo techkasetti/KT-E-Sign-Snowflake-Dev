@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.SET_DATA_MASK_09(mask_id STRING, field_name STRING, mask_expression STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.DATA_MASKS_09 t USING (SELECT :mask_id AS mid, :field_name AS fn, :mask_expression AS me) s ON t.MASK_ID = s.mid WHEN MATCHED THEN UPDATE SET FIELD_NAME = s.fn, MASK_EXPRESSION = s.me WHEN NOT MATCHED THEN INSERT (MASK_ID, FIELD_NAME, MASK_EXPRESSION) VALUES (s.mid, s.fn, s.me);
+$$
+

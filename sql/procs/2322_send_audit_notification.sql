@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.SEND_AUDIT_NOTIFICATION(audit_id STRING, channel STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged @~/procedures/send_audit_notification.py
+$$
+

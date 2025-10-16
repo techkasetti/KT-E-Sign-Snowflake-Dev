@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_BLOCKCHAIN_RESULT_07(result_id STRING, job_id STRING, tx_hash STRING, status STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.BLOCKCHAIN_RESULTS_07 (RESULT_ID, JOB_ID, TX_HASH, STATUS) VALUES (:result_id, :job_id, :tx_hash, :status);
+$$
+

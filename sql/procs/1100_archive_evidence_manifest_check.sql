@@ -1,0 +1,9 @@
+-- Reconciliation helper that validates manifest files present in S3 vs DB rows; operator must configure stage. @28 @30
+CREATE OR REPLACE PROCEDURE DOCGEN.CHECK_EVIDENCE_MANIFESTS()
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+  SELECT BUNDLE_ID, BUNDLE_URL FROM DOCGEN.SIGNATURE_EVIDENCE_BUNDLE WHERE ARCHIVE_STATUS IS NULL;
+$$;
+

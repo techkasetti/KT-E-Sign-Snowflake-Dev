@@ -1,0 +1,9 @@
+-- Return runbook URL for an alert type to surface in operator consoles. @1 @31
+CREATE OR REPLACE PROCEDURE DOCGEN.GET_RUNBOOK(alert_type STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+SELECT RUNBOOK_URL FROM DOCGEN.OPERATOR_RUNBOOKS WHERE ALERT_TYPE = :alert_type;
+$$;
+

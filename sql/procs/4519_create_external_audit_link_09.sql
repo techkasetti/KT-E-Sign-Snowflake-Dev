@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_EXTERNAL_AUDIT_LINK_09(link_id STRING, bundle_id STRING, external_ref STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.EXTERNAL_AUDIT_LINKS_09 (LINK_ID, BUNDLE_ID, EXTERNAL_REF) VALUES (:link_id, :bundle_id, :external_ref);
+$$
+

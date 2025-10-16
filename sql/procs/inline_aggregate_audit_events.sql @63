@@ -1,0 +1,18 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.AGGREGATE_AUDIT_EVENTS(window_hours INT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='aggregate_audit_events'
+AS
+$$
+def aggregate_audit_events(session, window_hours):
+    import uuid, json
+    rows = session.sql(f"SELECT COUNT(*) AS cnt, MIN(CREATED_AT) AS first_seen FROM DOCGEN.ACTIVATION_AUDIT WHERE CREATED_AT > DATEADD(hour, -{window_hours}, CURRENT_TIMESTAMP())").collect()
+    payload = {"count": int(rows[0]['CNT'])}
+    aid = 'agg_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.AUDIT_AGGREGATES (AGG_ID, AGG_KEY, AGG_PAYLOAD, AGG_AT) VALUES ('{aid}','audit_window_{window_hours}', PARSE_JSON('{json.dumps(payload)}'), CURRENT_TIMESTAMP());").collect()
+    return {"agg_id": aid, "payload": payload}
+$$;
+```
+

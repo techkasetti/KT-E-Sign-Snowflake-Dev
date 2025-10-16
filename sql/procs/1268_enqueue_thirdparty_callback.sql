@@ -1,0 +1,7 @@
+-- Enqueue a callback to be delivered to third-party systems. @31 @24 @52
+CREATE OR REPLACE PROCEDURE DOCGEN.ENQUEUE_THIRD_PARTY_CALLBACK(request_id STRING, target_url STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ INSERT INTO DOCGEN.THIRD_PARTY_CALLBACKS (CALLBACK_ID, REQUEST_ID, TARGET_URL, PAYLOAD) VALUES (UUID_STRING(), :request_id, :target_url, :payload); $$;
+

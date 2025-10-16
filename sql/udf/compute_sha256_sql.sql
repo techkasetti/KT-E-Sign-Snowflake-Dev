@@ -1,0 +1,11 @@
+-- SQL UDF: compute SHA256 of input string (for deterministic hashes used in evidence)
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+
+CREATE OR REPLACE FUNCTION DOCGEN.COMPUTE_SHA256(input_str STRING)
+RETURNS STRING
+LANGUAGE SQL
+AS $$
+  SELECT LOWER(TO_HEX(SHA2(input_str,256)))
+$$;
+

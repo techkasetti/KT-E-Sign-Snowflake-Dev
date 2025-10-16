@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_AUDIT_EXPORT_09(export_id STRING, requestor STRING, scope VARIANT, storage_ref STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.AUDIT_EXPORTS_09 (EXPORT_ID, REQUESTOR, SCOPE, STORAGE_REF, STATUS) VALUES (:export_id, :requestor, :scope, :storage_ref, 'PENDING');
+$$
+

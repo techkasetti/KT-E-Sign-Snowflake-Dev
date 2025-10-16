@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.INDEX_SIGNATURE_AUDIT(signature_id STRING, bundle_id STRING, signer_id STRING, audit_hash STRING)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='index_signature_audit'
+AS
+$$
+def index_signature_audit(session, signature_id, bundle_id, signer_id, audit_hash):
+    import uuid
+    iid = 'sai_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.SIGNATURE_AUDIT_INDEX (SAI_ID, SIGNATURE_ID, BUNDLE_ID, SIGNER_ID, AUDIT_HASH, INDEXED_AT) VALUES ('{iid}','{signature_id}','{bundle_id}','{signer_id}','{audit_hash}',CURRENT_TIMESTAMP());").collect()
+    return {"sai_id": iid}
+$$;
+```
+

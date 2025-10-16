@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.FIRE_SLA_ALERT(sla_id STRING, description STRING, severity STRING)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='fire_sla_alert'
+AS
+$$
+def fire_sla_alert(session, sla_id, description, severity):
+    import uuid
+    aid = 'sa_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.SLA_ALERTS (ALERT_ID, SLA_ID, DESCRIPTION, SEVERITY, FIRED_AT) VALUES ('{aid}','{sla_id}','{description.replace(\"'\",\"''\")}','{severity}',CURRENT_TIMESTAMP());").collect()
+    return {"alert_id": aid}
+$$;
+```
+

@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_POLICY_AUDIT_07(audit_id STRING, policy_id STRING, action STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.POLICY_AUDIT_TRAIL_07 (AUDIT_ID, POLICY_ID, ACTION, PAYLOAD) VALUES (:audit_id, :policy_id, :action, :payload);
+$$
+

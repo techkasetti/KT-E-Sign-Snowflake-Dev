@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_BACKUP_MANIFEST_09(manifest_id STRING, description STRING, storage_ref STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.BACKUP_MANIFESTS_09 (MANIFEST_ID, DESCRIPTION, STORAGE_REF) VALUES (:manifest_id, :description, :storage_ref);
+$$
+

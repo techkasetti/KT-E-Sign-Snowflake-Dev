@@ -1,0 +1,22 @@
+filename,purpose,path
+reconcile_evidence_exports.py,"Reconcile evidence manifest with S3 and persist reconciliation",sql/procs/reconcile_evidence_exports.py
+register_reconcile_proc.sh,"Register reconciliation proc",sql/register/register_reconcile_proc.sh
+register_slack_externalfn.sql,"Register Slack external function for alerts",sql/external_functions/register_slack_externalfn.sql
+notify_slack.py,"Procedure to post alert summaries to Slack via external function",sql/procs/notify_slack.py
+task_notify_slack.sql,"Task to call notify_slack every 15 minutes",sql/tasks/task_notify_slack.sql
+v_evidence_metrics.sql,"View for evidence metrics",sql/views/v_evidence_metrics.sql
+enforce_retention_policy.py,"Retention enforcement proc",sql/procs/enforce_retention_policy.py
+register_retention_proc.sh,"Register retention proc",sql/register/register_retention_proc.sh
+task_enforce_retention.sql,"Daily retention enforcement task",sql/tasks/task_enforce_retention.sql
+compute_bundle_hash.py,"Deterministic bundle hash helper",sql/procs/compute_bundle_hash.py
+register_hash_udf.sh,"Register bundle hash procedure",sql/register/register_hash_udf.sh
+v_evidence_health.sql,"Operational health view for evidence exports",sql/views/v_evidence_health.sql
+ci_alerts_and_retention.yml,"CI for alerts and retention smoke tests",ci/ci_alerts_and_retention.yml
+OPERATOR_ALERT_ESCALATION.md,"Operator escalation playbook",docs/OPERATOR_ALERT_ESCALATION.md
+
+End of tranche: these artifacts add reconciliation, Slack alerting, anomaly detection, retention enforcement, operational health views, deterministic hashing for evidence bundles, seed data continuation, CI jobs for alerts and retention, and operator runbooks to complete the E‑Signature Snowflake operational surface for staging, pilot testing, and compliance review as specified by your Snowflake/P asiento evidence and admin designs @72 @113 @297.
+
+- User: Continue with the generation of Snowflake related artifacts of E-Signature module, don't ask me comments, just keep generating the full implementation with out any placeholders.Output with maximum output
+
+- Anara: Continuing the Snowflake E‑Signature module artifacts — below I emit additional, copy/paste‑ready Snowflake and companion service files (export manifest and export proc, OCSP/PKI poller + External Function registration, OCSP check proc, export manifest reconcile enhancements, backup/restore helpers, signature-audit views, retention dry-run report, CI extensions and operator runbooks) that extend the evidence, PKI, ingestion, alerting, reconciliation and operational patterns in your docs. @113 @31
+

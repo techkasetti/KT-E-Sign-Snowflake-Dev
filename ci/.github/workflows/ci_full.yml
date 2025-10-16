@@ -1,0 +1,39 @@
+name: Snowflake Full CI
+on: [push, pull_request]
+jobs:
+  register_and_full_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install deps
+        run: pip install snowflake-connector-python pytest
+      - name: Deploy DDL (demo)
+        env:
+          SNOW_ACCOUNT: demo_account
+          SNOW_USER: sysadmin
+          SNOW_ROLE: SYSADMIN
+        run: |
+          snowsql -a $SNOW_ACCOUNT -u $SNOW_USER -r $SNOW_ROLE -f sql/ddl/ai_feature_hub_schema.sql
+          snowsql -a $SNOW_ACCOUNT -u $SNOW_USER -r $SNOW_ROLE -f sql/ddl/signature_domain_schema.sql
+          snowsql -a $SNOW_ACCOUNT -u $SNOW_USER -r $SNOW_ROLE -f sql/ddl/tmp_tables_and_analytics.sql
+      - name: Register procedures (demo)
+        env:
+          SNOW_ACCOUNT: demo_account
+          SNOW_USER: sysadmin
+          SNOW_ROLE: SYSADMIN
+        run: |
+          ./register/register_all_procs_demo.sh
+          ./register/register_additional_procs_demo.sh
+      - name: Seed demo data
+        env:
+          SNOW_ACCOUNT: demo_account
+          SNOW_USER: sysadmin
+          SNOW_ROLE: SYSADMIN
+        run: snowsql -a demo_account -u sysadmin -r SYSADMIN -f sql/seed/sample_seed_demo.sql
+      - name: Run tests
+        run: pytest -q tests/test_assemble_and_render.py tests/test_signature_flow.py tests/test_export_and_purge.py
+

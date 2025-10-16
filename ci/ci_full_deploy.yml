@@ -1,0 +1,32 @@
+name: DocGen E-Sign Full Deploy
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Register DDL and objects
+        run: |
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/ddl/signature_domain_schema.sql
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/ddl/document_assembly_schema.sql
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/ddl/pki_and_ocsp_schema.sql
+      - name: Register procs & external functions
+        run: |
+          ./sql/register/register_ingest_proc.sh
+          ./sql/register/register_signature_procs.sh
+          ./sql/register/register_reconcile_proc.sh
+          ./sql/register/register_hsm_stub.sh
+          ./sql/register/register_assembly_proc.sh
+          ./register/register_faiss_externalfn.sh
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/external_functions/register_ocsp_externalfn.sql
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/external_functions/register_email_alerter.sql
+      - name: Seed data & resume tasks
+        run: |
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/seed/sample_signature_seed.sql
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/tasks/create_signature_tasks.sql
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/tasks/task_alert_dispatch.sql
+      - name: Run smoke tests
+        run: |
+          pytest -q tests/test_ingest_and_alerts.py

@@ -1,0 +1,24 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.DISPATCH_ALERT(alert_id STRING, alert_payload VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='dispatch_alert'
+AS
+$$
+def dispatch_alert(session, alert_id, alert_payload):
+    import uuid, json
+    # find handlers
+    rows = session.sql(f"SELECT HANDLER_ID, CONFIG FROM DOCGEN.ALERT_HANDLERS WHERE ALERT_NAME = (SELECT NAME FROM DOCGEN.MONITORING_ALERTS WHERE MON_ID = '{alert_id}' LIMIT 1)").collect()
+    results = []
+    for r in rows:
+        hid = r['HANDLER_ID']
+        cfg = r['CONFIG']
+        did = 'dl_' + uuid.uuid4().hex
+        res = {"status":"ok","handler": hid}
+        session.sql(f"INSERT INTO DOCGEN.ALERT_DISPATCH_LOG (DISPATCH_ID, ALERT_ID, HANDLER_ID, RESULT, DISPATCHED_AT) VALUES ('{did}','{alert_id}','{hid}',PARSE_JSON('{json.dumps(res)}'),CURRENT_TIMESTAMP());").collect()
+        results.append(res)
+    return {"dispatched": results}
+$$;
+```
+

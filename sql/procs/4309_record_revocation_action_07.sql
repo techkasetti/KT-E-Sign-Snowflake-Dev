@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_REVOCATION_ACTION_07(action_id STRING, req_id STRING, action STRING, performed_by STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.REVOCATION_ACTIONS_07 (ACTION_ID, REQ_ID, ACTION, PERFORMED_BY) VALUES (:action_id, :req_id, :action, :performed_by);
+$$
+

@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.REGISTER_ALERT_HANDLER(alert_name STRING, handler_type STRING, config VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='register_alert_handler'
+AS
+$$
+def register_alert_handler(session, alert_name, handler_type, config):
+    import uuid, json
+    hid = 'ah_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.ALERT_HANDLERS (HANDLER_ID, ALERT_NAME, HANDLER_TYPE, CONFIG, CREATED_AT) VALUES ('{hid}','{alert_name}','{handler_type}',PARSE_JSON('{json.dumps(config or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"handler_id": hid}
+$$;
+```
+

@@ -1,0 +1,12 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_SIGNER_PROFILE_14(signer_id STRING, account_id STRING, email STRING, name STRING, phone STRING, profile_data VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.SIGNER_PROFILES_14 t
+USING (SELECT :signer_id AS sid, :account_id AS aid, :email AS em, :name AS nm, :phone AS ph, :profile_data AS pd) s
+ON t.SIGNER_ID = s.sid
+WHEN MATCHED THEN UPDATE SET ACCOUNT_ID = s.aid, EMAIL = s.em, NAME = s.nm, PHONE = s.ph, PROFILE_DATA = s.pd, UPDATED_AT = CURRENT_TIMESTAMP()
+WHEN NOT MATCHED THEN INSERT (SIGNER_ID, ACCOUNT_ID, EMAIL, NAME, PHONE, PROFILE_DATA) VALUES (s.sid, s.aid, s.em, s.nm, s.ph, s.pd);
+$$
+

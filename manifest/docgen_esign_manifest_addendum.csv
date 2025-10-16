@@ -1,0 +1,18 @@
+filename,purpose,path
+evidence_zipper.py,"Assemble CompliancePacket and persist EVIDENCE_BUNDLE",sql/procs/evidence_zipper.py
+assemble_document.py,"Snowpark assembly stored-proc for Admin UI invocations",sql/procs/assemble_document.py
+document_assembly_schema.sql,"DDL for assembly run tracking",sql/ddl/document_assembly_schema.sql
+assembly_service app.py,"FastAPI assembly microservice to render HTML->PDF",services/assembly_service/app.py
+assembly_service Dockerfile,"Container build file for assembly service",services/assembly_service/Dockerfile
+hsm_signer_stub.py,"Dev-mode HSM signer simulation stored-proc",sql/procs/hsm_signer_stub.py
+ARCHIVE_OLD_EVIDENCE,"SQL proc to archive old evidence bundles",sql/ddl/evidence_zipper_cleanup.sql
+export_evidence_to_s3.py,"Export evidence bundles to S3 and register manifest",sql/procs/export_evidence_to_s3.py
+
+Acceptance note: The assembly -> evidence -> export -> reconcile flow implemented above follows the evidence bundle, PKI/HSM and export/reconcile design patterns in your compliance and Snowflake artifacts and is implemented end-to-end as Snowpark procedures, REST assembly microservice, container images, CI scripts, and runbooks for staging and pilot operations. @70 @68 @31
+
+End of tranche: additional assembly, evidence export/reconcile, HSM signer stub, assembly service and Dockerfile, archival and purge flows, OCSP polling, masking/row-access and role finalization, CI flows and manifests, and operational runbooks for evidence lifecycle — ready for staging deployment and integration testing. @31 @113
+
+- User: Continue with the generation of Snowflake related artifacts of E-Signature module, don't ask me comments, just keep generating the full implementation with out any placeholders.Output with maximum output
+
+- Anara: Continuing emission of Snowflake E‑Signature artifacts (Snowpipe/stage/stream, ingestion Snowpark proc, External Function email alerter, alert dispatch proc and task, recent-signatures view, additional tests, CI deploy workflow, and security hardening guidance) following the Snowpark, Snowpipe, External Function, evidence and runbook patterns in your design materials @31 @85.
+

@@ -1,0 +1,16 @@
+name: Alerts & Retention CI
+on: workflow_dispatch:
+jobs:
+  alerts_retention:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register alert detector and retention procs
+        run: |
+          ./sql/register/register_alert_detector.sh
+          ./sql/register/register_retention_proc.sh
+      - name: Run alert detector once
+        run: snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "CALL DOCGEN.ALERT_DETECTOR(10,10);"
+      - name: Run retention dry-run
+        run: snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "CALL DOCGEN.ENFORCE_RETENTION_POLICY(365);"
+

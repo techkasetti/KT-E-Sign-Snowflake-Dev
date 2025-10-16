@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_ACCESS_POLICY_09(policy_id STRING, name STRING, rules VARIANT, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.ACCESS_POLICIES_09 t USING (SELECT :policy_id AS pid, :name AS nm, :rules AS r, :enabled AS e) s ON t.POLICY_ID = s.pid WHEN MATCHED THEN UPDATE SET NAME = s.nm, RULES = s.r, ENABLED = s.e WHEN NOT MATCHED THEN INSERT (POLICY_ID, NAME, RULES, ENABLED) VALUES (s.pid, s.nm, s.r, s.e);
+$$
+

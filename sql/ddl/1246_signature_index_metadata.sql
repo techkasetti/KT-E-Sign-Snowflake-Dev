@@ -1,0 +1,8 @@
+-- Index metadata to coordinate FAISS snapshot versions tied to signatures/documents if used. @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_INDEX_METADATA (
+  INDEX_ID STRING PRIMARY KEY,
+  SNAPSHOT_ID STRING,
+  CREATED_AT TIMESTAMP_LTZ DEFAULT CURRENT_TIMESTAMP(),
+  META VARIANT
+);
+

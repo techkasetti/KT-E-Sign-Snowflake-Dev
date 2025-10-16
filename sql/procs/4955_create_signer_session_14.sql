@@ -1,0 +1,9 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_SIGNER_SESSION_14(session_id STRING, signer_id STRING, bundle_id STRING, ip_address STRING, user_agent STRING, expires_at TIMESTAMP_LTZ)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.SIGNER_SESSIONS_14 (SESSION_ID, SIGNER_ID, BUNDLE_ID, IP_ADDRESS, USER_AGENT, EXPIRES_AT)
+VALUES (:session_id, :signer_id, :bundle_id, :ip_address, :user_agent, :expires_at);
+$$
+

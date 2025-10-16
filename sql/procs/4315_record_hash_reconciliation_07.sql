@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_HASH_RECONCILIATION_07(recon_id STRING, hash_id STRING, status STRING, details VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.HASH_RECONCILIATIONS_07 (RECON_ID, HASH_ID, STATUS, DETAILS) VALUES (:recon_id, :hash_id, :status, :details);
+$$
+

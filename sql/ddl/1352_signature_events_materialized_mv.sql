@@ -1,0 +1,4 @@
+-- Materialized view for accelerated admin queries over event types and counts as advised for dashboards @1 @6.
+CREATE OR REPLACE MATERIALIZED VIEW DOCGEN.MV_SIGNER_ACTIVITY AS
+SELECT REQUEST_ID, SIGNER_ID, EVENT_TYPE, COUNT(*) as CNT FROM DOCGEN.SIGNATURE_EVENTS GROUP BY REQUEST_ID, SIGNER_ID, EVENT_TYPE;
+

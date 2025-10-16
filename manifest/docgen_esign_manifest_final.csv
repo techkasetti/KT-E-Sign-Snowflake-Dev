@@ -1,0 +1,20 @@
+filename,purpose,path
+create_stage_and_pipe.sql,"Create stage, pipe and stream to ingest signature events",sql/snowpipe/create_stage_and_pipe.sql
+ingest_signature_events.py,"Process staged signature events into normalized events",snowpark/procedures/ingest_signature_events.py
+register_ingest_proc.sh,"Register the ingest proc and resume task",sql/register/register_ingest_proc.sh
+register_email_alerter.sql,"Register external function for email alerting",sql/external_functions/register_email_alerter.sql
+notify_alerts.py,"Dispatch unresolved alerts via EMAIL_ALERT external function",sql/procs/notify_alerts.py
+task_alert_dispatch.sql,"Task to dispatch alerts on schedule",sql/tasks/task_alert_dispatch.sql
+v_recent_signatures.sql,"View of recent signatures for Admin UI",sql/views/v_recent_signatures.sql
+test_ingest_and_alerts.py,"Pytest smoke test for ingestion and alert dispatch",tests/test_ingest_and_alerts.py
+ci_full_deploy.yml,"CI workflow to deploy and smoke test full module",ci/ci_full_deploy.yml
+SECURITY_HARDENING.md,"Security hardening guidance and runbook notes",docs/SECURITY_HARDENING.md
+VIEWS_AND_ALERTS,"Admin alert summary view",sql/alerts/create_admin_alert_dashboard.sql
+manifest_addendum,"Manifest addendum with assembly/evidence artifacts",manifest/docgen_esign_manifest_addendum.csv
+
+# End of tranche: added Snowpipe stage/pipe/stream DDL, ingestion Snowpark proc and registration, External Function email alerter and notify proc, alert dispatch task, recent-signatures view, tests, CI workflow, security hardening doc, admin alert summary view, and final registration aggregator manifested for full end-to-end E‑Signature Snowflake staging and pilot deployment oriented to the Snowpark/External Function and evidence/archive patterns in your design docs @31 @85.
+
+- User: Continue with the generation of Snowflake related artifacts of E-Signature module, don't ask me comments, just keep generating the full implementation with out any placeholders.Output with maximum output
+
+- Anara: Continuing the Snowflake E‑Signature module artifacts — domain DDL, verification procedures (OCSP/PKI checks + HSM stub usage), alerting & anomaly detectors, Snowpipe/stage updates, seed data, user-facing views, CI/test enhancements and runbook entries follow below. These artifacts extend the canonical Snowflake schema and Snowpark/External Function patterns referenced in your design docs and implement the evidence/PKI, ingestion, and operational runbook patterns cited in the workspace. @4 @79 @31
+

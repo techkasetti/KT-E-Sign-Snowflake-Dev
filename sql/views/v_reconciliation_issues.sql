@@ -1,0 +1,7 @@
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+CREATE OR REPLACE VIEW DOCGEN.V_RECONCILIATION_ISSUES AS
+SELECT r.RECON_ID, r.BILLING_RUN_ID, r.STATUS, r.CHECKED_AT FROM DOCGEN.BILLING_RECONCILIATION r WHERE r.STATUS != 'OK' ORDER BY r.CHECKED_AT DESC;
+
+Reconciliation issues view supports operator dashboards and daily reconciliation checks in the billing playbook materials @31 @70. @31 @70
+

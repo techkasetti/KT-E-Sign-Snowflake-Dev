@@ -1,0 +1,10 @@
+-- Small admin dashboard view combining counts and recent events for Admin Console integration. @31 @316
+CREATE OR REPLACE VIEW DOCGEN.V_ADMIN_SIGNATURE_DASH AS
+SELECT
+  COUNT(DISTINCT s.REQUEST_ID) AS total_requests,
+  SUM(CASE WHEN r.STATUS='COMPLETED' THEN 1 ELSE 0 END) AS completed_requests,
+  MAX(e.EVENT_TS) AS last_event_ts
+FROM DOCGEN.SIGNATURE_REQUESTS r
+LEFT JOIN DOCGEN.SIGNATURE_EVENTS e ON r.REQUEST_ID = e.REQUEST_ID
+LEFT JOIN DOCGEN.SIGNERS s ON r.REQUEST_ID = s.REQUEST_ID;
+

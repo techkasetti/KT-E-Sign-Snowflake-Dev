@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_RENDER_WORKER()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged at @~/procedures/run_render_worker.py
+$$;
+

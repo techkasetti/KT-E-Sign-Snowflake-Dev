@@ -1,0 +1,11 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_RESOURCE_QUOTA_12(quota_id STRING, account_id STRING, resource_type STRING, limit NUMBER, period STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.RESOURCE_QUOTAS_12 t USING (SELECT :quota_id AS qid, :account_id AS aid, :resource_type AS rt, :limit AS lim, :period AS per) s
+ON t.QUOTA_ID = s.qid
+WHEN MATCHED THEN UPDATE SET ACCOUNT_ID = s.aid, RESOURCE_TYPE = s.rt, LIMIT = s.lim, PERIOD = s.per
+WHEN NOT MATCHED THEN INSERT (QUOTA_ID, ACCOUNT_ID, RESOURCE_TYPE, LIMIT, PERIOD) VALUES (s.qid, s.aid, s.rt, s.lim, s.per);
+$$
+

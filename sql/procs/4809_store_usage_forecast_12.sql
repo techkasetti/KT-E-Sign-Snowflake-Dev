@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.STORE_USAGE_FORECAST_12(forecast_id STRING, account_id STRING, feature_code STRING, predicted_usage NUMBER, predicted_date DATE)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.FEATURE_USAGE_FORECAST_12 (FORECAST_ID, ACCOUNT_ID, FEATURE_CODE, PREDICTED_USAGE, PREDICTED_DATE) VALUES (:forecast_id, :account_id, :feature_code, :predicted_usage, :predicted_date);
+$$
+

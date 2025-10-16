@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_POLICY_APPROVAL_07(approval_id STRING, req_id STRING, approver STRING, comments STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.POLICY_APPROVALS_07 (APPROVAL_ID, REQ_ID, APPROVER, COMMENTS) VALUES (:approval_id, :req_id, :approver, :comments);
+$$
+

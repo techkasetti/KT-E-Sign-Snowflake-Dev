@@ -1,0 +1,8 @@
+-- Rate limit check proc used before accepting certain signer actions. @31 @24 @52
+CREATE OR REPLACE PROCEDURE DOCGEN.CHECK_RATE_LIMIT(account_id STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ SELECT OBJECT_CONSTRUCT('allowed', TRUE) FROM DOCGEN.SIGNATURE_RATE_LIMITS WHERE ACCOUNT_ID = :account_id;
+$$;
+

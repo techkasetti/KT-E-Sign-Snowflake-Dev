@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_ESCALATION_RULE(rule_id STRING, name STRING, conditions VARIANT, actions VARIANT, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.ESCALATION_RULES t USING (SELECT :rule_id AS rid, :name AS nm, :conditions AS cond, :actions AS acts, :enabled AS en) s ON t.RULE_ID = s.rid WHEN MATCHED THEN UPDATE SET NAME = s.nm, CONDITIONS = s.cond, ACTIONS = s.acts, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (RULE_ID, NAME, CONDITIONS, ACTIONS, ENABLED) VALUES (s.rid, s.nm, s.cond, s.acts, s.en);
+$$
+

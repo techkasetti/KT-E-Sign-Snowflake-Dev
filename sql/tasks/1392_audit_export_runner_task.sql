@@ -1,0 +1,2 @@
+-- Runner task to execute enabled audit exports on schedule. CREATE OR REPLACE TASK DOCGEN.TASK_RUN_AUDIT_EXPORTS WAREHOUSE = WH_PROC SCHEDULE = 'USING CRON 0 4 * * * UTC' AS CALL DOCGEN.RUN_AUDIT_EXPORTS();
+

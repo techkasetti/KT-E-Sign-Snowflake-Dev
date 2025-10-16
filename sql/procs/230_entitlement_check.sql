@@ -1,0 +1,11 @@
+-- ENTITLEMENT_CHECK Snowpark procedure used by Admin preflight and Apex preflight callouts per Admin integration guidance. @9 @31
+CREATE OR REPLACE PROCEDURE DOCGEN.ENTITLEMENT_CHECK(account_id STRING, feature_key STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+  SELECT OBJECT_CONSTRUCT('enabled', CASE WHEN EXISTS (
+    SELECT 1 FROM DOCGEN.ACCOUNT_FEATURE_PRICING p WHERE p.ACCOUNT_ID = :account_id AND p.FEATURE_KEY = :feature_key AND p.ENABLED = TRUE
+  ) THEN TRUE ELSE FALSE END) AS RESULT;
+$$;
+

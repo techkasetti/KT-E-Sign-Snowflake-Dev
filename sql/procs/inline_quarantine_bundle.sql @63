@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.QUARANTINE_BUNDLE(bundle_id STRING, reason STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='quarantine_bundle'
+AS
+$$
+def quarantine_bundle(session, bundle_id, reason, payload):
+    import uuid, json
+    qid = 'q_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.QUARANTINE_STORE (Q_ID, BUNDLE_ID, REASON, PAYLOAD, CREATED_AT) VALUES ('{qid}','{bundle_id}','{reason}',PARSE_JSON('{json.dumps(payload or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"quarantine_id": qid}
+$$;
+```
+

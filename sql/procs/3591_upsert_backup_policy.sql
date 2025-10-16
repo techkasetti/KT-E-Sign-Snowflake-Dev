@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_BACKUP_POLICY(policy_id STRING, name STRING, schedule STRING, target_location STRING, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.BACKUP_POLICIES t USING (SELECT :policy_id AS pid, :name AS nm, :schedule AS sch, :target_location AS tl, :enabled AS en) s ON t.POLICY_ID = s.pid WHEN MATCHED THEN UPDATE SET NAME = s.nm, SCHEDULE = s.sch, TARGET_LOCATION = s.tl, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (POLICY_ID, NAME, SCHEDULE, TARGET_LOCATION, ENABLED) VALUES (s.pid, s.nm, s.sch, s.tl, s.en);
+$$
+

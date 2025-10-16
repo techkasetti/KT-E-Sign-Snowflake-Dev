@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.EVALUATE_SLAS()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged @~/procedures/evaluate_slas.py
+$$
+

@@ -1,0 +1,11 @@
+-- Tracks callbacks to third-party systems for audit & retry (webhook delivery to external listeners). @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.THIRD_PARTY_CALLBACKS (
+  CALLBACK_ID STRING PRIMARY KEY,
+  REQUEST_ID STRING,
+  TARGET_URL STRING,
+  PAYLOAD VARIANT,
+  STATUS STRING,
+  ATTEMPTS INT DEFAULT 0,
+  LAST_ATTEMPT_AT TIMESTAMP_LTZ
+);
+

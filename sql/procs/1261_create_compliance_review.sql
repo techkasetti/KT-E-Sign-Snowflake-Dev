@@ -1,0 +1,7 @@
+-- Create compliance review entry for evidence bundle. @31 @24 @52
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_COMPLIANCE_REVIEW(bundle_id STRING, reviewer STRING, result STRING, notes STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ INSERT INTO DOCGEN.COMPLIANCE_REVIEWS (REVIEW_ID, BUNDLE_ID, REVIEWER, RESULT, NOTES) VALUES (UUID_STRING(), :bundle_id, :reviewer, :result, :notes); $$;
+

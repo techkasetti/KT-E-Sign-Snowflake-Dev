@@ -1,0 +1,8 @@
+CREATE OR REPLACE TASK DOCGEN.TASK_ALERT_DISPATCH
+WAREHOUSE = 'COMPUTE_WH'
+SCHEDULE = 'USING CRON */5 * * * * UTC'
+AS
+CALL DOCGEN.RUN_ALERT_DISPATCH(100);
+
+Task to poll anomaly detectors and dispatch alerts frequently. @62 @31
+

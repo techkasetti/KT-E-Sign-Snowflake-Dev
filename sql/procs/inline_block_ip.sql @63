@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.BLOCK_IP(ip_address STRING, reason STRING)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='block_ip'
+AS
+$$
+def block_ip(session, ip_address, reason):
+    import uuid
+    bid = 'ipb_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.IP_BLACKLIST (IP_ID, IP_ADDRESS, REASON, BLOCKED_AT) VALUES ('{bid}','{ip_address}','{reason.replace(\"'\",\"''\")}',CURRENT_TIMESTAMP());").collect()
+    return {"block_id": bid}
+$$;
+```
+

@@ -1,0 +1,13 @@
+name: Evidence E2E Smoke
+on: workflow_dispatch:
+jobs:
+  evidence_e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Register all
+        run: ./sql/register/register_all_remaining.sh
+      - name: Run e2e smoke
+        run: pytest -q tests/test_e2e_evidence_flow.py
+

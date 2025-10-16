@@ -1,0 +1,8 @@
+-- Schema registry to map provider webhook schemas to internal mapping logic for parsing. @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.WEBHOOK_SCHEMA_REGISTRY (
+  SCHEMA_ID STRING PRIMARY KEY,
+  PROVIDER STRING,
+  MAPPING_JSON VARIANT,
+  CREATED_AT TIMESTAMP_LTZ DEFAULT CURRENT_TIMESTAMP()
+);
+

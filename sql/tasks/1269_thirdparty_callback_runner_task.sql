@@ -1,0 +1,3 @@
+-- Task to run delivery of third-party callbacks with retry/backoff logic. @31 @24 @52
+CREATE OR REPLACE TASK DOCGEN.TASK_RUN_THIRD_PARTY_CALLBACKS WAREHOUSE = WH_PROC SCHEDULE = 'USING CRON */2 * * * * UTC' AS CALL DOCGEN.RUN_THIRD_PARTY_CALLBACKS();
+

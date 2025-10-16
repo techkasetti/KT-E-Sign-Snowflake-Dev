@@ -1,0 +1,3 @@
+# Operator alert escalation playbook
+1) High severity alerts appear in DOCGEN.V_ALERT_SUMMARY and in Slack channel via TASK_NOTIFY_SLACK. 2) On receiving a HIGH alert, open the alert row: SELECT * FROM DOCGEN.ALERTS WHERE ALERT_ID='<id>'; 3) For automated mitigation, call remediation procs (for specific alert types) or run manual investigation steps. 4) To mark resolved: UPDATE DOCGEN.ALERTS SET RESOLVED = TRUE, RESOLVED_AT = CURRENT_TIMESTAMP() WHERE ALERT_ID = '<id>'; 5) For evidence discrepancies, run: CALL DOCGEN.RECONCILE_EVIDENCE_EXPORTS('<manifest_id>') and follow reconciliation results.
+

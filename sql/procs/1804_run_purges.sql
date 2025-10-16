@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_PURGES()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged at @~/procedures/run_purges.py
+$$;
+

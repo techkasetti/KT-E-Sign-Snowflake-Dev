@@ -1,0 +1,9 @@
+-- Per-account provider configuration registry (DocuSign, Adobe, custom) for routing and failover. @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_PROVIDER_CONFIG (
+  PROVIDER_ID STRING PRIMARY KEY,
+  ACCOUNT_ID STRING,
+  PROVIDER_NAME STRING,
+  CONFIG VARIANT,
+  PRIORITY INT DEFAULT 0
+);
+

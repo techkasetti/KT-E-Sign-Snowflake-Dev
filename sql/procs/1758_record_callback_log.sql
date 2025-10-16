@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_CALLBACK_LOG(request_id STRING, callback_url STRING, status STRING, response_code INT, response_body VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.CALLBACK_LOGS (LOG_ID, REQUEST_ID, CALLBACK_URL, STATUS, RESPONSE_CODE, RESPONSE_BODY) VALUES (UUID_STRING(), :request_id, :callback_url, :status, :response_code, :response_body);
+$$;
+

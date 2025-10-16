@@ -1,0 +1,13 @@
+USE DATABASE AI_FEATURE_HUB; USE SCHEMA DOCGEN;
+CREATE OR REPLACE PROCEDURE DOCGEN.EXPORT_EVIDENCE_TO_S3(manifest_id STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+-- Implementation note: export rows to stage then call external uploader; manifest_id used for reconciliation
+INSERT INTO DOCGEN.EXPORT_MANIFEST (MANIFEST_ID, BUNDLE_ID, TARGET_LOCATION, STATUS, CREATED_AT)
+SELECT :manifest_id, BUNDLE_ID, 's3://your-bucket/evidence/' || :manifest_id, 'PENDING', CURRENT_TIMESTAMP()
+FROM DOCGEN.SIGNATURE_EVIDENCE_BUNDLE WHERE BUNDLE_ID IN (SELECT BUNDLE_ID FROM DOCGEN.SIGNATURE_EVIDENCE_BUNDLE WHERE CREATED_AT >= DATEADD('day', -1, CURRENT_TIMESTAMP()));
+$$;
+-- Export manifest creation used by evidence export & reconcile flows @62 @113
+

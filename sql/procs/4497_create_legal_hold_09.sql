@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_LEGAL_HOLD_09(hold_id STRING, name STRING, scope VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.LEGAL_HOLDS_09 (HOLD_ID, NAME, SCOPE) VALUES (:hold_id, :name, :scope);
+$$
+

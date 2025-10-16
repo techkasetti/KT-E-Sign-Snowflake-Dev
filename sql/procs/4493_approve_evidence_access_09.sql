@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.APPROVE_EVIDENCE_ACCESS_09(approval_id STRING, req_id STRING, approver STRING, comments STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.EVIDENCE_ACCESS_APPROVALS_09 (APPROVAL_ID, REQ_ID, APPROVER, COMMENTS) VALUES (:approval_id, :req_id, :approver, :comments);
+$$
+

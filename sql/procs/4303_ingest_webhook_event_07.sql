@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.INGEST_WEBHOOK_EVENT_07(event_id STRING, session_id STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.WEBHOOK_EVENTS_07 (EVENT_ID, SESSION_ID, PAYLOAD) VALUES (:event_id, :session_id, :payload);
+$$
+

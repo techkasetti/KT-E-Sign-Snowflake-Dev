@@ -1,0 +1,17 @@
+-- Additional maintenance stored-procs: compact_retrieval_results and cleanup temp tables @296
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+
+CREATE OR REPLACE PROCEDURE DOCGEN.COMPACT_RETRIEVAL_RESULTS()
+RETURNS STRING
+LANGUAGE SQL
+AS
+$$
+  -- keep only last 1000 retrievals per request to avoid unbounded growth (demo)
+  DELETE FROM DOCGEN.RETRIEVAL_RESULTS WHERE RETRIEVAL_ID IN (
+    SELECT RETRIEVAL_ID FROM DOCGEN.RETRIEVAL_RESULTS
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY REQUEST_ID ORDER BY RETRIEVED_AT DESC) > 1000
+  );
+  RETURN 'compact_done';
+$$;
+

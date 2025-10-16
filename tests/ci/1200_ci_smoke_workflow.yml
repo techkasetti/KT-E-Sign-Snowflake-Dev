@@ -1,0 +1,15 @@
+# CI smoke workflow skeleton that stages files, registers procs, registers external functions and runs smoke tests; align with repo CI patterns. @29 @31
+name: CI Smoke - ESign Snowflake
+on: [push]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install snowsql
+        run: echo "install snowsql here"
+      - name: Deploy to Snowflake (snowsql commands)
+        run: ./infra/deploy_helper.sh
+      - name: Run Smoke Tests
+        run: snowsql -f sql/tests/500_smoke_signature_ingest.sql
+

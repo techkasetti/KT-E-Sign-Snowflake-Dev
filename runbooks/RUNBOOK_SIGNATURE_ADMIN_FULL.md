@@ -1,0 +1,3 @@
+# Signature admin runbook (dev/demo usage)
+1) Deploy DDL and helper tables (use deploy_demo_env.sh for a demo flow). 2) Register procedures (register_all_procs_demo.sh). 3) Configure Snowpipe notifications for signature events and embeddings. 4) Build/push FAISS container if you plan to run similarity services. 5) Run smoke_run_demo.sh to verify end-to-end ingestion -> verification -> evidence and check DOCGEN.EVIDENCE_BUNDLE and DOCGEN.SIGNATURE_VALIDATION for results. 6) For production replace demo env vars with real values and integrate HSM for PKI and KMS for secrets. 7) Harden RBAC: grant only required roles to service users and add Row Access Policies per tenant.  
+

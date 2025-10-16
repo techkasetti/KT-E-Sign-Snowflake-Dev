@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.SUBMIT_REPORT_RUN(template_id STRING, parameters VARIANT, output_location STRING)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='submit_report_run'
+AS
+$$
+def submit_report_run(session, template_id, parameters, output_location):
+    import uuid, json
+    rid = 'rr_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.REPORT_RUNS (RUN_ID, TEMPLATE_ID, PARAMETERS, STATUS, OUTPUT_LOCATION, STARTED_AT) VALUES ('{rid}','{template_id}',PARSE_JSON('{json.dumps(parameters or {})}'),'QUEUED','{output_location}',CURRENT_TIMESTAMP());").collect()
+    return {"run_id": rid}
+$$;
+```
+

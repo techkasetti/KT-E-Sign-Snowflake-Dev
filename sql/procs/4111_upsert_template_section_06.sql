@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_TEMPLATE_SECTION_06(section_id STRING, template_id STRING, section_key STRING, section_content CLOB, ordering INT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.TEMPLATE_SECTIONS_06 t USING (SELECT :section_id AS sid, :template_id AS tid, :section_key AS sk, :section_content AS sc, :ordering AS ord) s ON t.SECTION_ID = s.sid WHEN MATCHED THEN UPDATE SET TEMPLATE_ID = s.tid, SECTION_KEY = s.sk, SECTION_CONTENT = s.sc, ORDERING = s.ord WHEN NOT MATCHED THEN INSERT (SECTION_ID, TEMPLATE_ID, SECTION_KEY, SECTION_CONTENT, ORDERING) VALUES (s.sid, s.tid, s.sk, s.sc, s.ord);
+$$
+

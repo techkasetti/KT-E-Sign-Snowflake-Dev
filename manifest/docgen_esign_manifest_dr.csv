@@ -1,0 +1,23 @@
+filename,purpose,path
+reconcile_evidence_exports.py,"Export manifest reconciliation procedure",sql/procs/reconcile_evidence_exports.py
+register_export_manifest.sh,"Register export manifest procedure",sql/register/register_export_manifest.sh
+register_ocsp_externalfn.sql,"OCSP external function registration template",sql/external_functions/register_ocsp_externalfn.sql
+check_ocsp_and_update.py,"OCSP check & persistence proc",sql/procs/check_ocsp_and_update.py
+task_ocsp_poll.sql,"Scheduled OCSP poller task",sql/tasks/task_ocsp_poll.sql
+backup_restore_helpers.sql,"Snapshot & restore helpers for DR",sql/procs/backup_restore_helpers.sql
+v_signature_audit.sql,"Composite signature audit view",sql/views/v_signature_audit.sql
+retention_dryrun_report.sql,"Retention dry-run report (no delete)",sql/reports/retention_dryrun_report.sql
+test_ocsp_and_reconcile.py,"CI smoke test for OCSP & reconcile",tests/test_ocsp_and_reconcile.py
+ci_ocsp_reconcile.yml,"CI job for OCSP & reconcile smoke",ci/ci_ocsp_reconcile.yml
+DR_PLAYBOOK_EVIDENCE_RECOVERY.md,"Disaster recovery playbook for evidence bundles",docs/DR_PLAYBOOK_EVIDENCE_RECOVERY.md
+
+Operational note: these artifacts implement OCSP polling, manifest-based export and reconciliation, Slack and email alert integration, anomaly detection tasks and retention enforcement flows that match the evidence/PKI, Snowpark stored‑proc, External Function and runbook patterns in your Snowflake design materials. @114 @113 @31
+
+End of this tranche — additional Snowflake artifacts (more UDFs, snowpipe automation wrappers, further CI pipelines, FAISS index snapshot triggers and production index builder, and per-tenant billing reconciliation connectors) can be emitted next in the same format; the set above completes export/reconcile, OCSP/PKI polling, retention enforcement, alerting, DR helpers and CI smoke tests needed for a pilot evidence/HSM-enabled E‑Signature flow per your design docs. @263 @31
+
+- User: Continue with the generation of Snowflake related artifacts of E-Signature module, don't ask me comments, just keep generating the full implementation with out any placeholders.Output with maximum output
+
+- Anara: Direct continuation: below are additional, copy/paste‑ready Snowflake and companion artifacts for the E‑Signature module (assembly/zipper, WRITE_EVIDENCE_BUNDLE Snowpark proc, FAISS index builder + snapshot loader, assembly service FastAPI + Dockerfile, entitlement cache + updater, Snowpipe automation helper, monitoring SLOs, extra CI jobs and tests). These artifacts follow the Snowpark/PUT→CREATE PROCEDURE registration, External Function/API_INTEGRATION, FAISS snapshot/container, and evidence/PKI patterns from your design materials @21 @31 @22. 
+
+Note: each descriptive sentence below cites the source design guidance used to shape that artifact @22 @65 @31.
+

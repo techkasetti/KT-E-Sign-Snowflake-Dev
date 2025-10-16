@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.APPLY_PRIVACY_MASK_11(mask_id STRING, name STRING, target_field STRING, masking_rule STRING, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.PRIVACY_MASKS_11 t USING (SELECT :mask_id AS mid, :name AS nm, :target_field AS tf, :masking_rule AS mr, :enabled AS en) s ON t.MASK_ID = s.mid WHEN MATCHED THEN UPDATE SET NAME = s.nm, TARGET_FIELD = s.tf, MASKING_RULE = s.mr, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (MASK_ID, NAME, TARGET_FIELD, MASKING_RULE, ENABLED) VALUES (s.mid, s.nm, s.tf, s.mr, s.en);
+$$
+

@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_CONTACT_05(contact_id STRING, name STRING, email STRING, phone STRING, role STRING, meta VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.CONTACT_DIRECTORY_05 t USING (SELECT :contact_id AS cid, :name AS nm, :email AS em, :phone AS ph, :role AS rl, :meta AS mt) s ON t.CONTACT_ID = s.cid WHEN MATCHED THEN UPDATE SET NAME = s.nm, EMAIL = s.em, PHONE = s.ph, ROLE = s.rl, META = s.mt WHEN NOT MATCHED THEN INSERT (CONTACT_ID, NAME, EMAIL, PHONE, ROLE, META) VALUES (s.cid, s.nm, s.em, s.ph, s.rl, s.mt);
+$$
+

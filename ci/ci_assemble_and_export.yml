@@ -1,0 +1,5 @@
+Purpose: CI workflow that registers assembly proc, runs a demo assembly via stored-proc and triggers evidence export; used in staging validation. @31 @70
+name: Assembly & Evidence Export CI
+on: workflow_dispatch:
+jobs: assemble_export: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v3 - name: Register assembly proc run: ./sql/register/register_assembly_proc.sh - name: Call assemble stored-proc run: snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "CALL DOCGEN.ASSEMBLE_DOCUMENT('req_demo_1', 'tpl_demo_1', PARSE_JSON('{\"clause1\":\"value1\"}'));" - name: Export evidence run: snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -q "CALL DOCGEN.EXPORT_EVIDENCE_TO_S3('manifest_demo_1','s3://docgen-evidence-archive',30);" - name: Reconcile run: ./sql/run_reconcile_exports.sh manifest_demo_1
+

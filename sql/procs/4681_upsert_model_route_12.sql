@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_MODEL_ROUTE_12(route_id STRING, model_id STRING, tenant_id STRING, priority NUMBER, config VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.MODEL_ROUTES_12 t USING (SELECT :route_id AS rid, :model_id AS mid, :tenant_id AS tid, :priority AS p, :config AS c) s ON t.ROUTE_ID = s.rid WHEN MATCHED THEN UPDATE SET MODEL_ID = s.mid, TENANT_ID = s.tid, PRIORITY = s.p, CONFIG = s.c WHEN NOT MATCHED THEN INSERT (ROUTE_ID, MODEL_ID, TENANT_ID, PRIORITY, CONFIG) VALUES (s.rid, s.mid, s.tid, s.p, s.c);
+$$
+

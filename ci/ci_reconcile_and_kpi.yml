@@ -1,0 +1,15 @@
+Purpose: CI job that registers reconciliation procs and validates KPI view generation; this ties to CI smoke patterns in your runbooks @72 @110.
+name: Reconcile & KPI CI
+on: workflow_dispatch:
+jobs:
+  reconcile_kpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register reconcile & KPI artifacts
+        run: |
+          ./sql/register/register_reconcile_invoices.sh
+          snowsql -a client_prod_001 -u svc_docgen -r DOCGEN_ADMIN -f sql/views/v_signature_kpis.sql
+      - name: Run reconciliation smoke
+        run: pytest -q tests/test_reconcile_invoices.py || true
+

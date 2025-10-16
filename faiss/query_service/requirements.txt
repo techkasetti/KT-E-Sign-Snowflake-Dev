@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+faiss-cpu
+numpy
+boto3
+gunicorn
+
+Requirements used for the FAISS query service container align with the FAISS container recommendations in your artifacts @29 @166. @29 @166
+

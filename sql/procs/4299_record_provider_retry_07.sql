@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_PROVIDER_RETRY_07(retry_id STRING, backoff_id STRING, result VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.PROVIDER_RETRY_LOG_07 (RETRY_ID, BACKOFF_ID, RESULT) VALUES (:retry_id, :backoff_id, :result);
+$$
+

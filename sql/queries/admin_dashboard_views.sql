@@ -1,0 +1,17 @@
+-- Admin dashboard helper queries for top-level monitoring
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+
+-- Signatures per day, last 30 days
+SELECT CAST(EVENT_TS::DATE AS DATE) AS day, COUNT(*) AS events_count
+FROM DOCGEN.SIGNATURE_EVENTS
+WHERE EVENT_TS >= DATEADD('day', -30, CURRENT_TIMESTAMP())
+GROUP BY CAST(EVENT_TS::DATE AS DATE)
+ORDER BY day DESC;
+
+-- Evidence exports per month
+SELECT DATE_TRUNC('month', EXPORT_TS) AS month, SUM(ROW_COUNT) AS rows_exported
+FROM DOCGEN.EVIDENCE_EXPORT_MANIFEST
+GROUP BY DATE_TRUNC('month', EXPORT_TS)
+ORDER BY month DESC;
+

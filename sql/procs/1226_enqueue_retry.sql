@@ -1,0 +1,7 @@
+-- Enqueue a retry job to SIGNATURE_RETRY_QUEUE for operational recovery flows. @31 @24 @52
+CREATE OR REPLACE PROCEDURE DOCGEN.ENQUEUE_RETRY(target_proc STRING, payload VARIANT, delay_minutes INT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ INSERT INTO DOCGEN.SIGNATURE_RETRY_QUEUE (RETRY_ID, TARGET_PROC, PAYLOAD, NEXT_RUN_AT) VALUES (UUID_STRING(), :target_proc, :payload, DATEADD(minute, :delay_minutes, CURRENT_TIMESTAMP())); $$;
+

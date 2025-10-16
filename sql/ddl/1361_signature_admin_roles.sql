@@ -1,0 +1,5 @@
+-- Admin and operator roles with minimal grants scaffold as starting point per least-privilege guidance @1 @6.
+CREATE OR REPLACE ROLE DOCGEN_OPERATOR;
+GRANT SELECT ON ALL TABLES IN SCHEMA DOCGEN TO ROLE DOCGEN_OPERATOR;
+GRANT EXECUTE ON ALL PROCEDURES IN SCHEMA DOCGEN TO ROLE DOCGEN_OPERATOR;
+

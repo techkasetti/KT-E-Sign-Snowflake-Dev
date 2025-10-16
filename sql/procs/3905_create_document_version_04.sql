@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_DOCUMENT_VERSION_04(version_id STRING, document_id STRING, version_number INT, changed_by STRING, change_log VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.DOCUMENT_VERSIONS_04 (VERSION_ID, DOCUMENT_ID, VERSION_NUMBER, CHANGED_BY, CHANGE_LOG) VALUES (:version_id, :document_id, :version_number, :changed_by, :change_log);
+$$
+

@@ -1,0 +1,6 @@
+-- Record a metric point for a provider to be used by routing heuristics. CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_PROVIDER_METRIC(provider_id STRING, name STRING, value VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ INSERT INTO DOCGEN.PROVIDER_METRICS (METRIC_ID, PROVIDER_ID, METRIC_NAME, METRIC_VALUE) VALUES (UUID_STRING(), :provider_id, :name, :value); $$;
+

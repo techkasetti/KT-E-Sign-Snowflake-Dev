@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_LIVENESS_EVENT(signer_id STRING, result VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='record_liveness_event';
+
+Records liveness checks and attaches results to SIGNER_SESSIONS for audit. @336 @31
+

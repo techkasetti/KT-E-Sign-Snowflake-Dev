@@ -1,0 +1,20 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.PROCESS_REPORT_RUNS(limit INT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='process_report_runs'
+AS
+$$
+def process_report_runs(session, limit):
+    rows = session.sql(f"SELECT RUN_ID FROM DOCGEN.REPORT_RUNS WHERE STATUS='QUEUED' LIMIT {limit}").collect()
+    processed = []
+    for r in rows:
+        rid = r['RUN_ID']
+        session.sql(f"UPDATE DOCGEN.REPORT_RUNS SET STATUS='RUNNING', STARTED_AT=CURRENT_TIMESTAMP() WHERE RUN_ID='{rid}';").collect()
+        session.sql(f"UPDATE DOCGEN.REPORT_RUNS SET STATUS='COMPLETED', COMPLETED_AT=CURRENT_TIMESTAMP() WHERE RUN_ID='{rid}';").collect()
+        processed.append(rid)
+    return {"processed": processed}
+$$;
+```
+

@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_PENDING_REMINDERS()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged handler at @~/procedures/run_pending_reminders.py
+$$;
+

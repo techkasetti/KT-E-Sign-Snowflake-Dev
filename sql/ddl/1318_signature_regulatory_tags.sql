@@ -1,0 +1,11 @@
+-- Tags and labels for evidence bundles to record jurisdictional/regulatory metadata for exports. @1 @31
+USE DATABASE AI_FEATURE_HUB;
+USE SCHEMA DOCGEN;
+CREATE OR REPLACE TABLE DOCGEN.REGULATORY_TAGS (
+  TAG_ID STRING PRIMARY KEY,
+  BUNDLE_ID STRING,
+  JURISDICTION STRING,
+  REGULATION STRING,
+  NOTES STRING
+);
+

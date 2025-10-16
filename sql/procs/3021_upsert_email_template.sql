@@ -1,0 +1,12 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_EMAIL_TEMPLATE(template_id STRING, name STRING, subject STRING, body CLOB, created_by STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.EMAIL_TEMPLATES t
+USING (SELECT :template_id AS tid, :name AS nm, :subject AS sub, :body AS bd, :created_by AS cb) s
+ON t.TEMPLATE_ID = s.tid
+WHEN MATCHED THEN UPDATE SET NAME = s.nm, SUBJECT = s.sub, BODY = s.bd
+WHEN NOT MATCHED THEN INSERT (TEMPLATE_ID, NAME, SUBJECT, BODY, CREATED_BY) VALUES (s.tid, s.nm, s.sub, s.bd, s.cb);
+$$
+

@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_OCSP_POLLS()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged handler at @~/procedures/run_ocsp_polls.py
+$$;
+

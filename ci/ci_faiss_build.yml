@@ -1,0 +1,16 @@
+name: FAISS Build & Register
+on: workflow_dispatch:
+jobs:
+  build_and_register:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build & push FAISS image
+      run: |
+        chmod +x tools/build_and_push_faiss.sh
+        ./tools/build_and_push_faiss.sh
+    - name: Register FAISS External Function
+      run: |
+        ./register/register_faiss_externalfn.sh
+

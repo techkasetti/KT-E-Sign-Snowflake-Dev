@@ -1,0 +1,9 @@
+-- Registry for scheduled batch exports of evidence for compliance/legal teams. @31 @24 @52
+CREATE OR REPLACE TABLE DOCGEN.SIGNATURE_BATCH_EXPORTS (
+  EXPORT_ID STRING PRIMARY KEY,
+  EXPORT_TYPE STRING,
+  STATUS STRING,
+  SCHEDULE CRON,
+  LAST_RUN_AT TIMESTAMP_LTZ
+);
+

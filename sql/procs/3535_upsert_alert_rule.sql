@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_ALERT_RULE(rule_id STRING, name STRING, condition VARIANT, severity STRING, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.ALERT_RULES t USING (SELECT :rule_id AS rid, :name AS nm, :condition AS cond, :severity AS sev, :enabled AS en) s ON t.RULE_ID = s.rid WHEN MATCHED THEN UPDATE SET NAME = s.nm, CONDITION = s.cond, SEVERITY = s.sev, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (RULE_ID, NAME, CONDITION, SEVERITY, ENABLED) VALUES (s.rid, s.nm, s.cond, s.sev, s.en);
+$$
+

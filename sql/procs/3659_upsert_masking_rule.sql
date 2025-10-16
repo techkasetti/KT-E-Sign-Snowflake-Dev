@@ -1,0 +1,8 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_MASKING_RULE(rule_id STRING, name STRING, target_field STRING, mask_expression STRING, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.MASKING_RULES t USING (SELECT :rule_id AS rid, :name AS nm, :target_field AS tf, :mask_expression AS me, :enabled AS en) s ON t.RULE_ID = s.rid WHEN MATCHED THEN UPDATE SET NAME = s.nm, TARGET_FIELD = s.tf, MASK_EXPRESSION = s.me, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (RULE_ID, NAME, TARGET_FIELD, MASK_EXPRESSION, ENABLED) VALUES (s.rid, s.nm, s.tf, s.me, s.en);
+$$
+

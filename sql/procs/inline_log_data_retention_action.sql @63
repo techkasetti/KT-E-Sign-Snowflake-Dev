@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.LOG_DATA_RETENTION_ACTION(target_table STRING, action STRING, details VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='log_data_retention_action'
+AS
+$$
+def log_data_retention_action(session, target_table, action, details):
+    import uuid, json
+    lid = 'dr_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.DATA_RETENTION_LOG (LOG_ID, TARGET_TABLE, ACTION, DETAILS, CREATED_AT) VALUES ('{lid}','{target_table}','{action}',PARSE_JSON('{json.dumps(details or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"log_id": lid}
+$$;
+```
+

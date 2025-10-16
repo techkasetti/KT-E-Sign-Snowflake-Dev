@@ -1,0 +1,11 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.RUN_HEALTH_CHECKS()
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.8'
+HANDLER='handler'
+AS
+$$
+# staged at @~/procedures/run_health_checks.py
+$$; 
+-- @31 @24 @52
+

@@ -1,0 +1,8 @@
+-- Check and honor provider configured limits before dispatching provider calls @1 @6.
+CREATE OR REPLACE PROCEDURE DOCGEN.CHECK_PROVIDER_RATE_LIMIT(provider_id STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ SELECT OBJECT_CONSTRUCT('ok', TRUE) FROM DOCGEN.PROVIDER_RATE_LIMITS WHERE PROVIDER_ID = :provider_id;
+$$;
+

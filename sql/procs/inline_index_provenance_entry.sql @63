@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.INDEX_PROVENANCE_ENTRY(ref STRING, metadata VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='index_provenance_entry'
+AS
+$$
+def index_provenance_entry(session, ref, metadata):
+    import uuid, json
+    pid = 'pi_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.PROVENANCE_INDEX (PI_ID, REF, METADATA, INDEXED_AT) VALUES ('{pid}','{ref}',PARSE_JSON('{json.dumps(metadata or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"pi_id": pid}
+$$;
+```
+

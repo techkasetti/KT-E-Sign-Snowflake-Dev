@@ -1,0 +1,7 @@
+-- Helper to set or upsert a flag for a request. @31 @24 @52
+CREATE OR REPLACE PROCEDURE DOCGEN.SET_SIGNATURE_FLAG(request_id STRING, flag_key STRING, flag_value VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ MERGE INTO DOCGEN.SIGNATURE_FLAGS tgt USING (SELECT :request_id AS r, :flag_key AS k, :flag_value AS v) src ON tgt.REQUEST_ID=src.r AND tgt.FLAG_KEY=src.k WHEN MATCHED THEN UPDATE SET FLAG_VALUE=src.v WHEN NOT MATCHED THEN INSERT (FLAG_ID, REQUEST_ID, FLAG_KEY, FLAG_VALUE) VALUES (UUID_STRING(), src.r, src.k, src.v); $$;
+

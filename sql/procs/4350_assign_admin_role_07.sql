@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.ASSIGN_ADMIN_ROLE_07(assign_id STRING, admin_id STRING, role_id STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.ADMIN_ROLE_ASSIGNMENTS_07 (ASSIGN_ID, ADMIN_ID, ROLE_ID) VALUES (:assign_id, :admin_id, :role_id);
+$$
+

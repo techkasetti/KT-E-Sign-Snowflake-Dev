@@ -1,0 +1,15 @@
+Purpose: CI job to run retention dry‑run and verify purge audit is written (safe test for CI). @109
+
+name: Retention Dry‑Run CI
+on: workflow_dispatch:
+jobs:
+  retention_dryrun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register retention proc
+        run: ./sql/register/register_purge_proc.sh
+      - name: Run retention dry-run test
+        run: pytest -q tests/test_purge_dryrun.py
+
+----

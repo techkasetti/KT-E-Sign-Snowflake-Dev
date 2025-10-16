@@ -1,0 +1,17 @@
+Purpose: CI job to register and run OCSP/reconcile smoke tests. @114
+name: OCSP & Reconcile CI
+on: workflow_dispatch:
+jobs:
+  ocsp_reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Register OCSP integration & procs
+        run: |
+          ./sql/register/register_ocsp_check.sh
+          ./sql/register/register_export_manifest.sh
+          ./sql/register/register_reconcile_proc.sh
+      - name: Run OCSP & Reconcile smoke
+        run: |
+          pytest -q tests/test_ocsp_and_reconcile.py
+

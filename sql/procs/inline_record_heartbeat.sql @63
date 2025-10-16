@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_HEARTBEAT(session_id STRING, payload VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='record_heartbeat'
+AS
+$$
+def record_heartbeat(session, session_id, payload):
+    import uuid, json
+    hid = 'hb_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.SESSION_HEARTBEATS (HB_ID, SESSION_ID, HB_PAYLOAD, HB_AT) VALUES ('{hid}','{session_id}',PARSE_JSON('{json.dumps(payload or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"hb_id": hid}
+$$;
+```
+

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DOCGEN.V_ESCALATIONS AS
+SELECT * FROM DOCGEN.INCIDENT_REPORTS WHERE SEVERITY = 'HIGH' AND STATUS != 'RESOLVED';
+
+Escalation view for operators to prioritize high-severity incidents. @344 @31
+

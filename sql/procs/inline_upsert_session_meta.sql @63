@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_SESSION_META(session_id STRING, key_name STRING, val VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='upsert_session_meta'
+AS
+$$
+def upsert_session_meta(session, session_id, key_name, val):
+    import uuid, json
+    mid = 'sm_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.SESSION_META (META_ID, SESSION_ID, KEY_NAME, VAL, UPDATED_AT) VALUES ('{mid}','{session_id}','{key_name}',PARSE_JSON('{json.dumps(val or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"meta_id": mid}
+$$;
+```
+

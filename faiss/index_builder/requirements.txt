@@ -1,0 +1,5 @@
+faiss-cpu
+numpy
+boto3
+smart_open
+

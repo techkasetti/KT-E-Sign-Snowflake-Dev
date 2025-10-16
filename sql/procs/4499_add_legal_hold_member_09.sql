@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns. @31
+CREATE OR REPLACE PROCEDURE DOCGEN.ADD_LEGAL_HOLD_MEMBER_09(member_id STRING, hold_id STRING, ref STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.LEGAL_HOLD_MEMBERS_09 (MEMBER_ID, HOLD_ID, REF) VALUES (:member_id, :hold_id, :ref);
+$$
+

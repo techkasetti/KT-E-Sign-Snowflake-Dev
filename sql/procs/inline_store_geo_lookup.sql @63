@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.STORE_GEO_LOOKUP(ip_address STRING, geo VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='store_geo_lookup'
+AS
+$$
+def store_geo_lookup(session, ip_address, geo):
+    import uuid, json
+    gid = 'geo_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.GEO_LOOKUPS (GEO_ID, IP_ADDRESS, GEO_DATA, LOOKED_UP_AT) VALUES ('{gid}','{ip_address}',PARSE_JSON('{json.dumps(geo or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"geo_id": gid}
+$$;
+```
+

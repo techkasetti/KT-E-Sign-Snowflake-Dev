@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_ADMIN_REPORT_07(report_id STRING, name STRING, owner STRING, config VARIANT)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.ADMIN_REPORTS_07 (REPORT_ID, NAME, OWNER, CONFIG) VALUES (:report_id, :name, :owner, :config);
+$$
+

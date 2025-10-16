@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_WEBHOOK_SIGNER_SESSION_07(session_id STRING, signer_id STRING, bundle_id STRING, status STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.WEBHOOK_SIGNER_SESSIONS_07 t USING (SELECT :session_id AS sid, :signer_id AS sg, :bundle_id AS bid, :status AS st) s ON t.SESSION_ID = s.sid WHEN MATCHED THEN UPDATE SET SIGNER_ID = s.sg, BUNDLE_ID = s.bid, STATUS = s.st WHEN NOT MATCHED THEN INSERT (SESSION_ID, SIGNER_ID, BUNDLE_ID, STATUS) VALUES (s.sid, s.sg, s.bid, s.st);
+$$
+

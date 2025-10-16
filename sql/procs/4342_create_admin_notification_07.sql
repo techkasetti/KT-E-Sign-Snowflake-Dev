@@ -1,0 +1,9 @@
+-- Generated per Snowflake E-Signature patterns @31 @36
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_ADMIN_NOTIFICATION_07(notif_id STRING, admin_id STRING, title STRING, body STRING, level STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+INSERT INTO DOCGEN.ADMIN_NOTIFICATIONS_07 (NOTIF_ID, ADMIN_ID, TITLE, BODY, LEVEL) VALUES (:notif_id, :admin_id, :title, :body, :level);
+$$
+

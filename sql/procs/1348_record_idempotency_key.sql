@@ -1,0 +1,7 @@
+-- Record idempotency key and fail if duplicate to enforce exactly-once ingestion semantics @1 @6.
+CREATE OR REPLACE PROCEDURE DOCGEN.RECORD_IDEMPOTENCY_KEY(key_id STRING)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$ MERGE INTO DOCGEN.IDEMPOTENCY_KEYS tgt USING (SELECT :key_id AS k) src ON tgt.KEY_ID = src.k WHEN NOT MATCHED THEN INSERT (KEY_ID) VALUES (src.k) WHEN MATCHED THEN UPDATE SET KEY_ID = tgt.KEY_ID; RETURN OBJECT_CONSTRUCT('key', :key_id); $$;
+

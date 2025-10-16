@@ -1,0 +1,8 @@
+CREATE OR REPLACE TASK DOCGEN.TASK_SIGNATURE_HEALTHCHECK
+WAREHOUSE = 'COMPUTE_WH'
+SCHEDULE = 'USING CRON 0 */1 * * * UTC'
+AS
+CALL DOCGEN.RUN_SIGNATURE_HEALTHCHECK();
+
+Periodic signature system health check task to validate HSM, OCSP, and providers. @19 @31
+

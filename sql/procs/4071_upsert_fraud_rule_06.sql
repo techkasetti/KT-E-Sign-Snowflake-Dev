@@ -1,0 +1,7 @@
+CREATE OR REPLACE PROCEDURE DOCGEN.UPSERT_FRAUD_RULE_06(rule_id STRING, name STRING, condition VARIANT, actions VARIANT, enabled BOOLEAN)
+RETURNS VARIANT
+LANGUAGE SQL
+AS
+$$
+MERGE INTO DOCGEN.FRAUD_RULES_06 t USING (SELECT :rule_id AS rid, :name AS nm, :condition AS cond, :actions AS acts, :enabled AS en) s ON t.RULE_ID = s.rid WHEN MATCHED THEN UPDATE SET NAME = s.nm, CONDITION = s.cond, ACTIONS = s.acts, ENABLED = s.en WHEN NOT MATCHED THEN INSERT (RULE_ID, NAME, CONDITION, ACTIONS, ENABLED) VALUES (s.rid, s.nm, s.cond, s.acts, s.en);
+$$

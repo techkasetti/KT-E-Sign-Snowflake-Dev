@@ -1,0 +1,16 @@
+```sql
+CREATE OR REPLACE PROCEDURE DOCGEN.CREATE_REPORT_TEMPLATE(name STRING, template_json VARIANT)
+RETURNS VARIANT
+LANGUAGE PYTHON
+RUNTIME_VERSION='3.10'
+HANDLER='create_report_template'
+AS
+$$
+def create_report_template(session, name, template_json):
+    import uuid, json
+    tid = 'rt_' + uuid.uuid4().hex
+    session.sql(f"INSERT INTO DOCGEN.REPORT_TEMPLATES (TEMPLATE_ID, NAME, TEMPLATE_JSON, CREATED_AT) VALUES ('{tid}','{name}',PARSE_JSON('{json.dumps(template_json or {})}'),CURRENT_TIMESTAMP());").collect()
+    return {"template_id": tid}
+$$;
+```
+

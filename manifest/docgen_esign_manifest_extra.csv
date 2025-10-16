@@ -1,0 +1,19 @@
+filename,purpose,path
+signature_domain_schema.sql,"Full domain schema DDL",sql/ddl/signature_domain_schema.sql
+sample_signature_seed.sql,"Seed data for staging",sql/seed/sample_signature_seed.sql
+verify_signature_extended.py,"Extended verification proc (OCSP+PKI integration)",snowpark/procedures/verify_signature_extended.py
+register_verify_signature.sh,"Register verification proc",sql/register/register_verify_signature.sh
+alert_detector.py,"Anomaly detector for signatures",sql/procs/alert_detector.py
+task_alert_detector.sql,"Scheduled task for alert detector",sql/tasks/task_alert_detector.sql
+compute_sha256.sql,"SQL UDF computing SHA256",sql/udf/compute_sha256.sql
+test_e2e_evidence_flow.py,"E2E smoke test for assembly/evidence flow",tests/test_e2e_evidence_flow.py
+ci_evidence_e2e.yml,"CI job to run e2e evidence smoke",ci/ci_evidence_e2e.yml
+create_roles_and_grants.sql,"Roles and base grants",sql/grants/create_roles_and_grants.sql
+RUNBOOK_QUICKSTART.md,"Staging quickstart and operational runbook",docs/RUNBOOK_QUICKSTART.md
+
+-- End of tranche: full domain DDL, seed data, extended verification proc, OCSP/PKI integration patterns, alert detection and dispatch, tasks, UDFs, role creation, CI and runbook entries added to complete the Snowflake-side E‑Signature implementation for staging and pilot per your Snowpark/External Function and PKI/evidence design artifacts. @4 @79 @31
+
+- User: Continue with the generation of Snowflake related artifacts of E-Signature module, don't ask me comments, just keep generating the full implementation with out any placeholders.Output with maximum output
+
+- Anara: Continuing the Snowflake E‑Signature module delivery — below are additional, copy/paste‑ready Snowflake artifacts (reconciliation proc, Slack alert integration, escalation workflow, retention enforcement, evidence metrics views, backup/restore helpers, CI test extensions and manifests) that extend the evidence, PKI, ingestion, alerting and operational patterns already implemented in your bundle @23 @72 @113. These files follow the Snowpark/External-Function, Snowpipe, evidence export/reconcile, and PKI/OCSP patterns in your design artifacts and are suitable for staging and pilot runs @297 @291 @260.
+

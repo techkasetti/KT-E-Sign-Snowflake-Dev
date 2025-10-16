@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+boto3
+snowflake-connector-python
+snowflake-snowpark-python
+python-magic
+

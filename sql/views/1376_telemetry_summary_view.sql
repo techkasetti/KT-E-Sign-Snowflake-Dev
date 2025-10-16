@@ -1,0 +1,3 @@
+-- Simple summary view to inspect telemetry event counts for admin dashboards @1 @6.
+CREATE OR REPLACE VIEW DOCGEN.V_TELEMETRY_SUMMARY AS SELECT SOURCE, EVENT_NAME, COUNT(*) AS CNT FROM DOCGEN.TELEMETRY_EVENTS GROUP BY SOURCE, EVENT_NAME;
+
