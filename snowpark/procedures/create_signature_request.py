@@ -1,4 +1,4 @@
-Purpose: Create a signature request and seed signer entries; returns request_id and signer records.
+# Purpose: Create a signature request and seed signer entries; returns request_id and signer records.
 # create_signature_request.py
 from snowflake.snowpark import Session
 import uuid, json, datetime

@@ -1,4 +1,4 @@
-Purpose: External Function registration to post alerts/notifications to Slack via a secure gateway per External Function patterns; used by notify procedures and alert flows. @62 @31
+--Purpose: External Function registration to post alerts/notifications to Slack via a secure gateway per External Function patterns; used by notify procedures and alert flows. @62 @31
 -- register_slack_externalfn.sql
 USE DATABASE AI_FEATURE_HUB;
 USE SCHEMA DOCGEN;

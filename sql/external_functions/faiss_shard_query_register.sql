@@ -1,4 +1,4 @@
-Purpose: template SQL to register a per-shard FAISS query external function that calls a containerized per-shard query service; use your API gateway and API_INTEGRATION patterns as described in the External Function guidance @31 @4.
+--Purpose: template SQL to register a per-shard FAISS query external function that calls a containerized per-shard query service; use your API gateway and API_INTEGRATION patterns as described in the External Function guidance @31 @4.
 -- faiss_shard_query_register.sql
 USE DATABASE AI_FEATURE_HUB;
 USE SCHEMA DOCGEN;
@@ -10,5 +10,7 @@ CREATE OR REPLACE EXTERNAL FUNCTION DOCGEN.FAISS_SHARD_QUERY(shard_id STRING, pa
 RETURNS VARIANT
 API_INTEGRATION = AI_FEATURE_HUB.FAISS_QUERY_INTEGRATION
 HEADERS = ('Content-Type' = 'application/json')
-AS 'https://faiss-query.example.com/shard/{shard_id}/search'; @31 @4
+AS 'https://faiss-query.example.com/shard/{shard_id}/search';
+
+-- @31 @4
 
